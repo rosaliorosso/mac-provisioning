@@ -1,0 +1,92 @@
+- hosts: localhost # 実行対象のホストを指定
+  connection: local
+  gather_facts: no
+  environment:
+    HOMEBREW_CASK_OPTS: "--appdir=/Applications"
+
+  tasks:  # 実行したい動作をtasksに記述
+
+    # update homebrew
+    - homebrew: update_homebrew=yes
+
+    # brew
+    - homebrew: name=readline state=latest
+    - homebrew: name=openssl state=latest
+    - homebrew: name=openssl state=linked install_options=force
+    - homebrew: name=python state=latest
+    - homebrew: name=ansible state=latest
+    - homebrew: name=coreutils state=latest
+    - homebrew: name=git state=latest
+    - homebrew: name=zsh state=latest install_options=disable-etcdir
+    - homebrew: name=wget state=latest
+    - homebrew: name=curl state=latest
+    - homebrew: name=cmake state=latest
+    - homebrew: name=autoconf state=latest
+    - homebrew: name=automake state=latest
+    - homebrew: name=pkg-config state=latest
+    - homebrew: name=ctags state=latest
+    - homebrew: name=tree state=latest
+    - homebrew: name=lv state=latest
+    - homebrew: name=nkf state=latest
+    - homebrew: name=jq state=latest
+    - homebrew: name=go state=latest
+    - homebrew: name=direnv state=latest
+    - homebrew: name=peco state=latest
+    - homebrew: name=hub state=latest
+    - homebrew: name=tig state=latest
+    - homebrew: name=fish state=latest
+    - homebrew: name=rbenv state=latest
+    - homebrew: name=ruby-build state=latest
+    - homebrew: name=tofrodos state=latest
+    - homebrew: name=lha state=latest
+    - homebrew: name=flow state=latest
+    - homebrew: name=mysql state=latest
+    - homebrew: name=sqlite state=latest
+    - homebrew: name=redis state=latest
+    - homebrew: name=imagemagick state=latest
+    - homebrew: name=packer state=latest
+    - homebrew: name=xz state=latest
+    - homebrew: name=socat state=latest
+    - homebrew: name=rlwrap state=latest
+    - homebrew: name=tmux state=latest
+    - homebrew: name=reattach-to-user-namespace state=latest
+    - homebrew: name=graphviz state=latest
+    - homebrew: name=autojump state=latest
+    - homebrew: name=gibo state=latest
+    - homebrew: name=source-highlight state=latest
+    - homebrew: name=vim state=latest
+    - homebrew: name=httpie state=latest
+    - homebrew: name=chromedriver state=latest
+    - homebrew: name=hugo state=latest
+
+    # homebrew tap
+    - homebrew_tap: name=caskroom/cask
+    - homebrew_tap: name=sanemat/font
+    
+    # homebrew cask
+    - homebrew_cask: name=emacs
+    - homebrew_cask: name=visual-studio-code
+    - homebrew_cask: name=google-chrome
+    - homebrew_cask: name=slack
+    - homebrew_cask: name=dash
+    - homebrew_cask: name=skitch
+    - homebrew_cask: name=vagrant state=latest
+    - homebrew_cask: name=virtualbox
+    - homebrew_cask: name=docker
+
+    # install Prezto
+    - shell: git clone --recursive https://github.com/sorin-ionescu/prezto.git ~/.zprezto
+
+    # Ricty
+    - homebrew_cask: name=xquartz
+    - homebrew: name=fontforge
+    - homebrew: name=ricty
+    - shell: cp -f $(brew --cellar ricty)/*/share/fonts/Ricty*.ttf ~/Library/Fonts/
+      args:
+        creates: ~/Library/Fonts/Ricty-Bold.ttf
+      notify: run fc-cache
+
+
+  handlers: # タスク実行後に実行したい動作をhandlersに定義
+    - name: run fc-cache
+      shell: fc-cache -vf
