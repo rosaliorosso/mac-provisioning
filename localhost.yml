@@ -58,6 +58,8 @@
     - homebrew: name=httpie state=latest
     - homebrew: name=chromedriver state=latest
     - homebrew: name=hugo state=latest
+    - homebrew: name=heroku state=latest
+    - homebrew: name=node state=latest
 
     # homebrew tap
     - homebrew_tap: name=caskroom/cask
