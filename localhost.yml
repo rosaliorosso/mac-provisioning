@@ -17,6 +17,7 @@
     - homebrew: name=ansible state=latest
     - homebrew: name=coreutils state=latest
     - homebrew: name=git state=latest
+    - homebrew: name=git-secrets state=latest
     - homebrew: name=zsh state=latest install_options=disable-etcdir
     - homebrew: name=wget state=latest
     - homebrew: name=curl state=latest
