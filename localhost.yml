@@ -62,6 +62,7 @@
     - homebrew: name=heroku state=latest
     - homebrew: name=node state=latest
     - homebrew: name=terraform state=latest
+    - homebrew: name=keycastr state=latest
 
     # homebrew tap
     - homebrew_tap: name=caskroom/cask
